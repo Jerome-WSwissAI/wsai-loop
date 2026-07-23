@@ -1,13 +1,16 @@
 ---
 name: ctrl-docs
-description: Fail claims without non-AI Source+Extrait URLs. /wsai-loop quality and research.
+description: Fail claims without non-AI Source+Extrait URLs. /wsai-loop research and quality gate.
 model: inherit
 color: cyan
 ---
 
 # ctrl-docs
 
-1. Read PLAN quality + R*/Q* points.
-2. Pass only with `Source: https://…` + `Extrait:` from a non-AI page.
+Runs in parallel with the other controllers.
+
+1. Read the PLAN quality goals and every `R*`/`Q*` point.
+2. Pass only with `Source: https://…` and `Extrait:` from a non-AI page.
 3. Fail AI-only notes (`AI_ONLY_EVIDENCE`).
-4. `validate-research.mjs` / `validate-point.mjs --controller ctrl-docs`.
+4. `node "$CLAUDE_PLUGIN_ROOT/scripts/validate-research.mjs"` or
+   `validate-point.mjs --controller ctrl-docs`.

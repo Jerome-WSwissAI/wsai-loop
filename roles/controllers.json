@@ -3,42 +3,42 @@
     {
       "id": "ctrl-docs",
       "worker": "wsai-research",
-      "mission": "Claims need non-AI http(s) Source+Extrait. Fail invented APIs.",
+      "mission": "Claims need a non-AI http(s) Source and Extrait. Fail invented APIs.",
       "out": "validations/research",
       "covers": ["docs", "urls", "research"]
     },
     {
       "id": "ctrl-divergence",
       "worker": "wsai-audit",
-      "mission": "Diff artefacts vs PLAN/OBJECTIVE. Fail divergence.",
+      "mission": "Diff artefacts against PLAN and every workstream. Fail divergence or a WS that skipped its owned paths.",
       "out": "validations",
-      "covers": ["divergence", "plan"]
+      "covers": ["divergence", "plan", "workstream"]
     },
     {
       "id": "ctrl-hostile",
       "worker": "wsai-test-user",
-      "mission": "Break incomplete work. Todos and user-tests must pass with evidence.",
+      "mission": "Break incomplete work. Todos and user-tests must pass with disk evidence.",
       "out": "validations",
       "covers": ["hostile", "todo", "test"]
     },
     {
       "id": "ctrl-lexeme",
       "worker": "wsai-lexeme",
-      "mission": "Every character/word in scoped texts must have a role. Fail fluff.",
+      "mission": "Every character and word in scoped texts must have a role. Fail fluff.",
       "out": "validations",
       "covers": ["lexeme", "word", "character"]
     },
     {
       "id": "ctrl-force",
       "worker": "wsai-correction",
-      "mission": "Emit FORCE_CONTINUE while research, todos, lexeme, or board incomplete.",
+      "mission": "Emit FORCE_CONTINUE while research, todos, workstreams, lexeme, or board is incomplete.",
       "out": "validations",
       "covers": ["force", "incomplete"]
     },
     {
       "id": "ctrl-final",
       "worker": "wsai-cdc",
-      "mission": "Done only if BOARD allPass including lexemeOk and todosOk.",
+      "mission": "Done only if BOARD allPass including lexemeOk, todosOk, and workstreamsOk.",
       "out": "validations",
       "covers": ["final", "board"]
     }

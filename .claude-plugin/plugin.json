@@ -1,18 +1,10 @@
 {
   "name": "wsai-loop",
-  "version": "1.4.0",
-  "description": "Goal to non-AI research to todos to lexeme to one-shot.",
+  "version": "2.0.0",
+  "description": "Goal to a complete, tested project built by parallel agents: research, build, review, converge until the board passes.",
   "author": { "name": "WSAI / Whytcard" },
   "license": "MIT",
-  "keywords": ["wsai", "hooks"],
-  "agents": [
-    "./agents/ctrl-docs.md",
-    "./agents/ctrl-divergence.md",
-    "./agents/ctrl-hostile.md",
-    "./agents/ctrl-lexeme.md",
-    "./agents/ctrl-force.md",
-    "./agents/ctrl-final.md"
-  ],
+  "keywords": ["wsai", "parallel-agents", "orchestration", "workstreams", "hooks"],
   "commands": ["./commands/wsai-loop.md", "./commands/wsai-loop-cancel.md"],
   "hooks": "./hooks/hooks.claude.json"
 }

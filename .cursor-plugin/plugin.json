@@ -1,10 +1,10 @@
 {
   "name": "wsai-loop",
-  "version": "1.4.0",
-  "description": "Goal to non-AI research to todos to lexeme gate to one-shot.",
+  "version": "2.0.0",
+  "description": "Goal to a complete, tested project built by parallel agents.",
   "author": { "name": "WSAI / Whytcard" },
   "license": "MIT",
-  "keywords": ["wsai", "hooks", "todos", "lexeme"],
+  "keywords": ["wsai", "parallel-agents", "workstreams", "hooks"],
   "agents": "agents",
   "commands": "commands",
   "hooks": "./hooks/hooks.json"

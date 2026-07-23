@@ -55,6 +55,7 @@ const points = pointsDoc.points.map((p) => {
 const byKind = {
   research: summary(points.filter((p) => p.kind === "research")),
   todo: summary(points.filter((p) => p.kind === "todo")),
+  workstream: summary(points.filter((p) => p.kind === "workstream")),
   feature: summary(points.filter((p) => p.kind === "feature")),
   "user-test": summary(points.filter((p) => p.kind === "user-test")),
   quality: summary(points.filter((p) => p.kind === "quality")),
@@ -74,6 +75,8 @@ const lexemeOk = lexeme?.pass === true;
 
 const researchOk =
   byKind.research.total === 0 || byKind.research.failed === 0;
+const workstreamsOk =
+  byKind.workstream.total === 0 || byKind.workstream.failed === 0;
 const featuresOk = byKind.feature.total === 0 || byKind.feature.failed === 0;
 const testsOk =
   byKind["user-test"].total === 0 || byKind["user-test"].failed === 0;
@@ -91,6 +94,7 @@ const allPass =
   researchOk &&
   todosOk &&
   lexemeOk &&
+  workstreamsOk &&
   featuresOk &&
   testsOk &&
   qualityOk &&
@@ -122,6 +126,7 @@ const board = {
   researchOk,
   todosOk,
   lexemeOk,
+  workstreamsOk,
   featuresOk,
   userTestsOk: testsOk,
   qualityOk,
@@ -157,6 +162,7 @@ console.log(
     researchOk,
     todosOk,
     lexemeOk,
+    workstreamsOk,
     featuresOk,
     userTestsOk: testsOk,
     qualityOk,

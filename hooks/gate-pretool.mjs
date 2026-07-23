@@ -16,14 +16,33 @@ const MUTATING = new Set(["Write", "StrReplace", "Edit", "EditNotebook", "Delete
 const ALLOW_RE =
   /[\\/](prompts[\\/](CURRENT|PLAN|TODO|LIST)\.(md|json)|validations[\\/](RESEARCH|PHASE|ACTIVE|EVENTS|TODOS|DEEPEN|POINTS)\.json|validations[\\/]research[\\/])/i;
 
+// Emit both contracts: Claude Code reads hookSpecificOutput.permissionDecision
+// (docs: hooks PreToolUse); Cursor reads the top-level permission field.
 function deny(msg) {
   process.stdout.write(
-    JSON.stringify({ permission: "deny", user_message: msg, agent_message: msg }) + "\n"
+    JSON.stringify({
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "deny",
+        permissionDecisionReason: msg,
+      },
+      permission: "deny",
+      user_message: msg,
+      agent_message: msg,
+    }) + "\n"
   );
   process.exit(0);
 }
 function allow() {
-  process.stdout.write(JSON.stringify({ permission: "allow" }) + "\n");
+  process.stdout.write(
+    JSON.stringify({
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "allow",
+      },
+      permission: "allow",
+    }) + "\n"
+  );
   process.exit(0);
 }
 
