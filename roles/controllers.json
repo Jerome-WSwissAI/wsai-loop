@@ -1,0 +1,39 @@
+{
+  "controllers": [
+    {
+      "id": "ctrl-docs",
+      "worker": "wsai-research",
+      "mission": "Validate every claim against official/recent docs with direct URLs. Fail invented APIs.",
+      "out": "E:/WSAI/Orchestration/Raisonnement/research/out",
+      "covers": ["docs", "urls", "research"]
+    },
+    {
+      "id": "ctrl-divergence",
+      "worker": "wsai-audit",
+      "mission": "Diff artefacts vs fiche/CDC/Docs/OBJECTIVE. Fail on documentation divergence.",
+      "out": "E:/WSAI/Orchestration/Raisonnement/audit/out",
+      "covers": ["divergence", "fiche", "cdc"]
+    },
+    {
+      "id": "ctrl-hostile",
+      "worker": "wsai-test-user",
+      "mission": "Hostile tests; break incomplete work; push edge cases until honest pass or fail-with-path.",
+      "out": "E:/WSAI/Orchestration/Raisonnement/test-user/out",
+      "covers": ["hostile", "test", "proof"]
+    },
+    {
+      "id": "ctrl-force",
+      "worker": "wsai-correction",
+      "mission": "Detect skip/poor execution; emit FORCE_CONTINUE with missing checklist.",
+      "out": "E:/WSAI/Orchestration/Raisonnement/correction/out",
+      "covers": ["force", "skip", "incomplete"]
+    },
+    {
+      "id": "ctrl-final",
+      "worker": "wsai-cdc",
+      "mission": "Final gate: all POINTS pass with evidence; Jerome confirmation list with zero divergence.",
+      "out": "E:/WSAI/Orchestration/wsai-loop/validations",
+      "covers": ["final", "board", "confirmation"]
+    }
+  ]
+}

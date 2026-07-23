@@ -1,0 +1,17 @@
+{
+  "name": "wsai-loop",
+  "version": "1.3.0",
+  "description": "Goal → research (non-AI sources) → todolist all validated → one-shot.",
+  "author": { "name": "WSAI / Whytcard" },
+  "license": "MIT",
+  "keywords": ["wsai", "orchestration", "hooks"],
+  "agents": [
+    "./agents/ctrl-docs.md",
+    "./agents/ctrl-divergence.md",
+    "./agents/ctrl-hostile.md",
+    "./agents/ctrl-force.md",
+    "./agents/ctrl-final.md"
+  ],
+  "commands": ["./commands/wsai-loop.md", "./commands/wsai-loop-cancel.md"],
+  "hooks": "./hooks/hooks.claude.json"
+}

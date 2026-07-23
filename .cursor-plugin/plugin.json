@@ -1,0 +1,13 @@
+{
+  "name": "wsai-loop",
+  "version": "1.3.0",
+  "description": "Goal → non-AI sourced research → generated todolist all validated → one-shot complete.",
+  "author": {
+    "name": "WSAI / Whytcard"
+  },
+  "license": "MIT",
+  "keywords": ["wsai", "orchestration", "hooks", "todos", "research"],
+  "agents": "agents",
+  "commands": "commands",
+  "hooks": "./hooks/hooks.json"
+}
