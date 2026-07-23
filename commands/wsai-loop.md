@@ -1,32 +1,30 @@
 ---
 name: wsai-loop
-description: "Goal to research (non-AI sources) to todolist validated to one-shot."
-argument-hint: "what to automate until complete"
+description: "Goal → non-AI research → todos → lexeme → one-shot."
+argument-hint: "goal to automate until perfect"
 ---
 
 # /wsai-loop
 
-You state only the goal. Realization = one-shot (no return).
+State the goal only. Done = one-shot, no return.
 
 `$ARGUMENTS` = goal.
 
-## Single install
+## Install
 
-One plugin path: `~/.cursor/plugins/local/wsai-loop`  
-One slash command: `/wsai-loop` (+ `/wsai-loop-cancel`).
-
-```bash
-git clone https://github.com/Jerome-WSwissAI/wsai-loop.git ~/.cursor/plugins/local/wsai-loop
-```
-
-Runtime: `WSAI_LOOP_ROOT` or `./.wsai-loop`.
+`~/.cursor/plugins/local/wsai-loop`  
+Clone: https://github.com/Jerome-WSwissAI/wsai-loop  
+Cursor manifest: `.cursor-plugin/`. Claude Code: `.claude-plugin/`.  
+No duplicate user skill. Runtime: `WSAI_LOOP_ROOT` or `./.wsai-loop`.
 
 ## Flow
 
 1. `CURRENT.md` → `PLAN.md`
-2. `init-run.mjs` → RESEARCH + `generate-todos.mjs` → `TODO.md`
-3. Each R*: `Source:` + `Extrait:` (non-AI) → `validate-research.mjs`
-4. Each TD*: `validate-todo.mjs`
-5. `board.mjs` — done only if all pass
+2. `init-run.mjs` → RESEARCH + todos
+3. R*: `Source:` + `Extrait:` → `validate-research.mjs`
+4. TD*: `validate-todo.mjs`
+5. `validate-lexeme.mjs` — every character/word must earn its place
+6. Controllers + `board.mjs` — loop via stop until allPass
 
-Hooks: https://cursor.com/docs/hooks
+Hooks: https://cursor.com/docs/hooks  
+Cancel: `/wsai-loop-cancel`

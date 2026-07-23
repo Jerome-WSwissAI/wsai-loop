@@ -11,7 +11,7 @@
     "stop": [
       {
         "command": "node \"${CURSOR_PLUGIN_ROOT}/hooks/stop.mjs\"",
-        "loop_limit": 12
+        "loop_limit": 40
       }
     ]
   }

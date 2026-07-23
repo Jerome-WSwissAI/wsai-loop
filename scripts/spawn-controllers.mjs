@@ -38,10 +38,9 @@ for (const c of assignments.controllers) {
     validateCmd: `node "${paths.pluginRoot}/scripts/validate-point.mjs" --id <POINT_ID> --pass true|false --evidence <PATH> --controller ${c.id}`,
     boardCmd: `node "${paths.pluginRoot}/scripts/board.mjs"`,
     mandate: [
-      "Frame Translator if work is not 100% correct for your mission.",
-      "Force continuation material: write fail notes that ctrl-force can turn into FORCE_CONTINUE.",
+      "If incomplete for your mission, write fail notes for FORCE_CONTINUE.",
       "Zero invented docs/APIs. Prefer official URLs.",
-      "Evidence must be a real disk path Jerome can open.",
+      "Evidence must be a real disk path the user can open.",
     ],
   };
   const local = path.join(paths.spawnDir, `${c.id}.SPAWN.json`);

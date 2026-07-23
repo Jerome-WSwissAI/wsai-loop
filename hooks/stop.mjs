@@ -50,7 +50,26 @@ try {
     process.stdout.write(
       JSON.stringify({
         followup_message:
-          `FORCE: TODOs from research not all validated (${miss}). validate-todo.mjs --pass --evidence (non-AI sources). See prompts/TODO.md`,
+          `FORCE: TODOs incomplete (${miss}). validate-todo.mjs with non-AI sources. No reframe.`,
+      }) + "\n"
+    );
+    process.exit(0);
+  }
+
+  spawnSync(
+    process.execPath,
+    [path.join(pluginRoot, "scripts", "validate-lexeme.mjs"), "--root", pluginRoot],
+    { encoding: "utf8" }
+  );
+  const lexeme = readJson(
+    path.join(paths.runtimeRoot, "validations", "LEXEME.json")
+  );
+  if (!lexeme?.pass) {
+    process.stdout.write(
+      JSON.stringify({
+        followup_message:
+          `FORCE: lexeme fail (${lexeme?.fails?.length || "?"} dead words/chars). ` +
+          `Every character must have a reason. Fix plugin texts → validate-lexeme.mjs. See validations/LEXEME.json`,
       }) + "\n"
     );
     process.exit(0);

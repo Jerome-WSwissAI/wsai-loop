@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import fs from "node:fs";
+import path from "node:path";
 import {
-    appendEvent,
-    ensureRuntimeDirs,
-    paths,
-    readJson,
-    writeJson,
+  appendEvent,
+  ensureRuntimeDirs,
+  paths,
+  readJson,
+  writeJson,
 } from "./paths.mjs";
 
 ensureRuntimeDirs();
@@ -68,6 +69,9 @@ const todosOk =
   !todosFile?.items?.length ||
   (Boolean(todosFile.allPass) && missingTodos.length === 0);
 
+const lexeme = readJson(path.join(paths.runtimeRoot, "validations", "LEXEME.json"), null);
+const lexemeOk = lexeme?.pass === true;
+
 const researchOk =
   byKind.research.total === 0 || byKind.research.failed === 0;
 const featuresOk = byKind.feature.total === 0 || byKind.feature.failed === 0;
@@ -80,11 +84,13 @@ const goalOk =
 const missing = [
   ...points.filter((p) => !p.pass).map((p) => p.id),
   ...missingTodos.filter((id) => !points.some((p) => p.id === id)),
+  ...(lexemeOk ? [] : ["LEXEME"]),
 ];
 const allPass =
   missing.length === 0 &&
   researchOk &&
   todosOk &&
+  lexemeOk &&
   featuresOk &&
   testsOk &&
   qualityOk &&
@@ -115,6 +121,7 @@ const board = {
   allPass,
   researchOk,
   todosOk,
+  lexemeOk,
   featuresOk,
   userTestsOk: testsOk,
   qualityOk,
@@ -149,6 +156,7 @@ console.log(
     allPass,
     researchOk,
     todosOk,
+    lexemeOk,
     featuresOk,
     userTestsOk: testsOk,
     qualityOk,

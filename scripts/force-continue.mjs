@@ -46,16 +46,15 @@ if (forceLoops > maxForceLoops) {
 }
 
 const message = [
-  "FORCE_CONTINUE — wsai-loop incomplete (réalisation one-shot pas atteinte).",
-  `But complet: ${board.completeGoal || active.completeGoal || "(unset)"}`,
-  "Missing (R* research / F* / T* / Q* / GOAL):",
+  "FORCE_CONTINUE — incomplete (one-shot not reached).",
+  `Goal: ${board.completeGoal || active.completeGoal || "(unset)"}`,
+  "Missing (R*/TD*/LEXEME/F*/T*/Q*/GOAL):",
   ...missingList.map((l) => `- ${l}`),
   "",
   "Rules:",
-  "1. Ne pas rappeler Jerome pour re-cadrer — deepen recherches/listes puis controllers.",
-  "2. deepen.mjs jusqu'à saturated; puis validate-point + board.",
-  "3. Réalisation = plus aucune action restante pour Jerome sur ce sujet.",
-  "4. Done interdit tant que BOARD.allPass ou DEEPEN.saturated faux.",
+  "1. Do not ask the user to reframe — deepen, validate, controllers.",
+  "2. deepen → validate-lexeme → validate-point → board.",
+  "3. Done only when BOARD.allPass (incl. lexemeOk + todosOk).",
   `Force loop ${forceLoops}/${maxForceLoops}`,
 ].join("\n");
 

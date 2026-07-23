@@ -3,37 +3,44 @@
     {
       "id": "ctrl-docs",
       "worker": "wsai-research",
-      "mission": "Validate every claim against official/recent docs with direct URLs. Fail invented APIs.",
-      "out": "E:/WSAI/Orchestration/Raisonnement/research/out",
+      "mission": "Claims need non-AI http(s) Source+Extrait. Fail invented APIs.",
+      "out": "validations/research",
       "covers": ["docs", "urls", "research"]
     },
     {
       "id": "ctrl-divergence",
       "worker": "wsai-audit",
-      "mission": "Diff artefacts vs fiche/CDC/Docs/OBJECTIVE. Fail on documentation divergence.",
-      "out": "E:/WSAI/Orchestration/Raisonnement/audit/out",
-      "covers": ["divergence", "fiche", "cdc"]
+      "mission": "Diff artefacts vs PLAN/OBJECTIVE. Fail divergence.",
+      "out": "validations",
+      "covers": ["divergence", "plan"]
     },
     {
       "id": "ctrl-hostile",
       "worker": "wsai-test-user",
-      "mission": "Hostile tests; break incomplete work; push edge cases until honest pass or fail-with-path.",
-      "out": "E:/WSAI/Orchestration/Raisonnement/test-user/out",
-      "covers": ["hostile", "test", "proof"]
+      "mission": "Break incomplete work. Todos and user-tests must pass with evidence.",
+      "out": "validations",
+      "covers": ["hostile", "todo", "test"]
+    },
+    {
+      "id": "ctrl-lexeme",
+      "worker": "wsai-lexeme",
+      "mission": "Every character/word in scoped texts must have a role. Fail fluff.",
+      "out": "validations",
+      "covers": ["lexeme", "word", "character"]
     },
     {
       "id": "ctrl-force",
       "worker": "wsai-correction",
-      "mission": "Detect skip/poor execution; emit FORCE_CONTINUE with missing checklist.",
-      "out": "E:/WSAI/Orchestration/Raisonnement/correction/out",
-      "covers": ["force", "skip", "incomplete"]
+      "mission": "Emit FORCE_CONTINUE while research, todos, lexeme, or board incomplete.",
+      "out": "validations",
+      "covers": ["force", "incomplete"]
     },
     {
       "id": "ctrl-final",
       "worker": "wsai-cdc",
-      "mission": "Final gate: all POINTS pass with evidence; Jerome confirmation list with zero divergence.",
-      "out": "E:/WSAI/Orchestration/wsai-loop/validations",
-      "covers": ["final", "board", "confirmation"]
+      "mission": "Done only if BOARD allPass including lexemeOk and todosOk.",
+      "out": "validations",
+      "covers": ["final", "board"]
     }
   ]
 }

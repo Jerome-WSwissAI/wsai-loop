@@ -1,14 +1,14 @@
 ---
 name: wsai-loop-cancel
-description: "Désarme la boucle wsai-loop (ACTIVE=false) pour arrêter FORCE_CONTINUE"
+description: "Set ACTIVE=false to stop FORCE_CONTINUE."
 ---
 
 # /wsai-loop-cancel
 
-Écris `E:\WSAI\Orchestration\wsai-loop\validations\ACTIVE.json` avec:
+Write `validations/ACTIVE.json`:
 
 ```json
-{ "active": false, "cancelledAt": "<ISO>", "cancelledBy": "jerome" }
+{ "active": false, "cancelledAt": "<ISO>", "cancelledBy": "user" }
 ```
 
-Puis confirme le chemin. N'efface pas BOARD/POINTS (historique).
+Keep BOARD/POINTS history.

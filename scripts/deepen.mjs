@@ -1,12 +1,7 @@
 #!/usr/bin/env node
 /**
- * [process] Deepen loop: push research/reasoning further → richer lists → re-loop
- * until saturated (no new gaps). Realization = one-shot; do not ask Jerome to reframe.
- *
- * Usage:
- *   node deepen.mjs              # propose gaps / update DEEPEN.json
- *   node deepen.mjs --saturate   # mark saturated after hostile check (explicit)
- *   node deepen.mjs --status
+ * Deepen: widen research/lists until saturated. One-shot; do not ask user to reframe.
+ *   node deepen.mjs | --saturate | --status
  */
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -37,7 +32,7 @@ let deepen = readJson(deepenPath, null) || {
   saturated: false,
   gaps: [],
   addedSubjects: [],
-  rule: "Deepen until no new gaps; Jerome must not reframe. Realization = one-shot complete.",
+  rule: "Deepen until no gaps; do not ask user to reframe. One-shot complete.",
 };
 
 if (statusOnly) {
@@ -163,7 +158,7 @@ const listBody = [
   `saturated: ${deepen.saturated}`,
   `research.allPass: ${research.allPass}`,
   ``,
-  `## Gaps (must close — do not ask Jerome to reframe)`,
+  `## Gaps (must close — do not ask user to reframe)`,
   ...(gaps.length
     ? gaps.map((g, i) => `- [ ] G${i + 1} [${g.kind}] ${g.action}`)
     : [`- [x] none — candidate saturation`]),
@@ -192,7 +187,7 @@ const followup = deepen.saturated
   : [
       "FORCE_DEEPEN — list incomplete; push reasoning/research further.",
       `Round ${deepen.round}. Gaps: ${gaps.length}.`,
-      "Do NOT ask Jerome to reframe. Expand PLAN Recherche / proofs / LIST until deepen.saturated.",
+      "Do NOT ask user to reframe. Expand PLAN / proofs / LIST until deepen.saturated.",
       `See ${listPath}`,
       ...gaps.slice(0, 8).map((g, i) => `${i + 1}. [${g.kind}] ${g.action}`),
     ].join("\n");
