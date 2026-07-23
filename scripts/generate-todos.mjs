@@ -38,6 +38,10 @@ for (const t of prev.items || []) {
 }
 
 function pushTodo({ text, from, ref, linkedResearch }) {
+  text = String(text || "")
+    .replace(/^\[.\]\s*/, "")
+    .trim();
+  if (text.length < 4) return;
   const k = `${from}::${text}`;
   const old = prevByKey.get(k);
   const id = old?.id && /^TD\d+$/.test(old.id) ? old.id : `TD${nextId++}`;
@@ -88,19 +92,13 @@ if (fs.existsSync(researchDir)) {
     const p = path.join(researchDir, f);
     const text = fs.readFileSync(p, "utf8");
     const todoSec = extractSection(text, ["Todos", "Todo", "Actions", "Checklist"]);
-    const lines = [
-      ...bulletsFrom(todoSec),
-      ...text
-        .split(/\r?\n/)
-        .filter((l) => /^[-*]\s*\[[ x]\]\s+/i.test(l))
-        .map((l) =>
-          l
-            .replace(/^[-*]\s*\[[ x]\]\s+/i, "")
-            .trim()
-        ),
-    ];
-    for (const line of lines) {
-      if (line.length < 4) continue;
+    const fromSec = new Set(bulletsFrom(todoSec));
+    const fromBoxes = text
+      .split(/\r?\n/)
+      .filter((l) => /^[-*]\s*\[[ x]\]\s+/i.test(l))
+      .map((l) => l.replace(/^[-*]\s*\[[ x]\]\s+/i, "").trim())
+      .filter((l) => l.length >= 4 && !fromSec.has(l));
+    for (const line of [...fromSec, ...fromBoxes]) {
       pushTodo({
         text: line,
         from: "research",

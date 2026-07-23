@@ -8,6 +8,9 @@ export const PLUGIN_ROOT = path.resolve(__dirname, "..");
 /** Runtime dir: WSAI_LOOP_ROOT, else legacy E:\ path if present, else ./.wsai-loop */
 function resolveRuntimeRoot() {
   if (process.env.WSAI_LOOP_ROOT) return path.resolve(process.env.WSAI_LOOP_ROOT);
+  if (process.env.PROJECT_ROOT) {
+    return path.resolve(process.env.PROJECT_ROOT, ".wsai-loop");
+  }
   const legacy = "E:/WSAI/Orchestration/wsai-loop";
   if (fs.existsSync(legacy)) return legacy;
   return path.resolve(process.cwd(), ".wsai-loop");
