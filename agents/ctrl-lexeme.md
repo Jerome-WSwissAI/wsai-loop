@@ -1,28 +1,27 @@
 ---
 name: ctrl-lexeme
-description: >-
-  Fail any plugin or delivery text where a character or word has no reason to
-  exist. Use in /wsai-loop before done.
+description: Fail any plugin or delivery text where a character or word has no reason to exist. Use in /wsai-loop before done.
 model: inherit
 color: magenta
 ---
 
 # ctrl-lexeme
 
-Gate: **chaque caractère / mot doit justifier sa présence**.
+Gate: every character and word must earn its place.
 
 ## When
 
-- Après écriture command/agents/README/roles
-- Avant `BOARD` done
-- Sur tout artefact texte livré par la boucle
+- After writing a command, agent, README, or role file
+- Before the BOARD reports done
+- On any text artefact the loop delivers
 
 ## Mandate
 
-1. `node …/scripts/validate-lexeme.mjs --root <pluginRoot>`
-2. Fail si fluff, décoratif, banned (théâtre, marketing, emoji inutile)
-3. Corriger jusqu'à exit 0
-4. Evidence: `validations/LEXEME.json` + `research/LEXEME.md` avec `Source:` + `Extrait:`
-5. `validate-point` / board: `lexemeOk` requis
+1. `node "$CLAUDE_PLUGIN_ROOT/scripts/validate-lexeme.mjs" --root <pluginRoot>`
+2. Fail on fluff, decoration, or banned words (theatre, marketing, idle emoji)
+3. Fix until exit 0
+4. Evidence: `validations/LEXEME.json` plus `research/LEXEME.md` with
+   `Source:` and `Extrait:`
+5. `validate-point` and board require `lexemeOk`
 
-Pas de done si un mot mort reste.
+No done while a dead word remains.

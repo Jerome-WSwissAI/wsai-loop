@@ -13,6 +13,7 @@ import {
     extractField,
     extractSection,
     paths,
+    readJson,
     writeJson,
 } from "./paths.mjs";
 
@@ -124,6 +125,14 @@ const todosDoc = JSON.parse(
     : '{"items":[]}'
 );
 
+// Decompose into parallel workstreams (disjoint owned paths + dependency batches).
+spawnSync(
+  process.execPath,
+  [path.join(paths.pluginRoot, "scripts", "plan-workstreams.mjs")],
+  { encoding: "utf8" }
+);
+const workstreamsDoc = readJson(paths.workstreams, { items: [], batches: [] });
+
 const points = [];
 const raw = [];
 for (const r of researchSubjects) {
@@ -140,6 +149,14 @@ for (const td of todosDoc.items || []) {
     text: td.text,
     controller: "ctrl-hostile",
     idHint: td.id,
+  });
+}
+for (const ws of workstreamsDoc.items || []) {
+  raw.push({
+    kind: "workstream",
+    text: `${ws.title} [owns ${(ws.owns || []).join(", ") || "src"}]`,
+    controller: ws.controller || "ctrl-divergence",
+    idHint: ws.id,
   });
 }
 for (const f of plan.features) {
@@ -160,6 +177,7 @@ raw.push({
 const counters = {
   research: 0,
   todo: 0,
+  workstream: 0,
   feature: 0,
   "user-test": 0,
   quality: 0,
@@ -168,6 +186,7 @@ const counters = {
 const idPrefix = {
   research: "R",
   todo: "TD",
+  workstream: "WS",
   feature: "F",
   "user-test": "T",
   quality: "Q",
@@ -199,6 +218,8 @@ const sections = {
   completeGoal: plan.completeGoal,
   discussionId: discussionId || null,
   researchSubjects: researchSubjects.map((s) => s.title),
+  workstreams: (workstreamsDoc.items || []).map((w) => w.id),
+  parallelBatches: workstreamsDoc.batches || [],
   features: plan.features,
   userTests: plan.userTests,
   qualityGoals: plan.qualityGoals,
@@ -244,6 +265,7 @@ writeJson(path.join(paths.runtimeRoot, "validations", "PHASE.json"), {
   counts: {
     research: researchSubjects.length,
     todos: (todosDoc.items || []).length,
+    workstreams: (workstreamsDoc.items || []).length,
     features: plan.features.length,
     userTests: plan.userTests.length,
     qualityGoals: plan.qualityGoals.length,
@@ -263,6 +285,7 @@ writeJson(paths.board, {
   byKind: {
     research: points.filter((p) => p.kind === "research").map((p) => p.id),
     todo: points.filter((p) => p.kind === "todo").map((p) => p.id),
+    workstream: points.filter((p) => p.kind === "workstream").map((p) => p.id),
     feature: points.filter((p) => p.kind === "feature").map((p) => p.id),
     "user-test": points.filter((p) => p.kind === "user-test").map((p) => p.id),
     quality: points.filter((p) => p.kind === "quality").map((p) => p.id),
@@ -276,6 +299,7 @@ appendEvent({
   points: points.length,
   research: researchSubjects.length,
   todos: (todosDoc.items || []).length,
+  workstreams: (workstreamsDoc.items || []).length,
   features: plan.features.length,
   userTests: plan.userTests.length,
   qualityGoals: plan.qualityGoals.length,
@@ -310,14 +334,16 @@ console.log(
     byKind: {
       research: researchSubjects.length,
       todos: (todosDoc.items || []).length,
+      workstreams: (workstreamsDoc.items || []).length,
       features: plan.features.length,
       userTests: plan.userTests.length,
       qualityGoals: plan.qualityGoals.length,
       goal: 1,
     },
+    parallelBatches: workstreamsDoc.batches || [],
     board: paths.board,
     plan: assignments.planPath,
-    next: "validate-research R* → generate-todos → validate-todo TD* → board",
+    next: "validate-research R* → build WS* in parallel batches → validate-todo TD* → board",
   })
 );
 

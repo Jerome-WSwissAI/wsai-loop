@@ -7,6 +7,9 @@ color: red
 
 # ctrl-hostile
 
-1. Run each TD*/T* as a real user would.
-2. Fail soft passes without disk evidence.
-3. `validate-todo.mjs` / `validate-point.mjs --controller ctrl-hostile`.
+Runs in parallel with the other controllers.
+
+1. Run each `TD*`/`T*` the way a real user would, including the edge cases.
+2. Fail soft passes that have no disk evidence.
+3. `node "$CLAUDE_PLUGIN_ROOT/scripts/validate-todo.mjs"` or
+   `validate-point.mjs --controller ctrl-hostile`.

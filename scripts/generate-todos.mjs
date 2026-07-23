@@ -31,6 +31,7 @@ const prevByKey = new Map(
 );
 
 const items = [];
+const emittedKeys = new Set();
 let nextId = 1;
 for (const t of prev.items || []) {
   const m = String(t.id || "").match(/^TD(\d+)$/);
@@ -43,6 +44,10 @@ function pushTodo({ text, from, ref, linkedResearch }) {
     .trim();
   if (text.length < 4) return;
   const k = `${from}::${text}`;
+  // Idempotent: never emit the same (from, text) twice in one run, so ids stay
+  // unique and stable when the stop hook regenerates todos each loop.
+  if (emittedKeys.has(k)) return;
+  emittedKeys.add(k);
   const old = prevByKey.get(k);
   const id = old?.id && /^TD\d+$/.test(old.id) ? old.id : `TD${nextId++}`;
   items.push({
