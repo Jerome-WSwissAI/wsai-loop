@@ -10,10 +10,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  appendEvent,
-  ensureRuntimeDirs,
-  paths,
-  writeJson,
+    appendEvent,
+    ensureRuntimeDirs,
+    paths,
+    writeJson,
 } from "./paths.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
