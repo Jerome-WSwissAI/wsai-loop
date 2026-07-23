@@ -6,11 +6,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  appendEvent,
-  ensureRuntimeDirs,
-  paths,
-  readJson,
-  writeJson,
+    appendEvent,
+    ensureRuntimeDirs,
+    paths,
+    readJson,
+    writeJson,
 } from "./paths.mjs";
 
 ensureRuntimeDirs();

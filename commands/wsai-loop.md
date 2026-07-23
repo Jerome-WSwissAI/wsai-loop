@@ -1,39 +1,32 @@
 ---
 name: wsai-loop
-description: "But → recherches (sources non-IA) → todolist → tout validé → one-shot."
-argument-hint: "ce qui doit être automatisé jusqu'à réalisation complète"
+description: "Goal to research (non-AI sources) to todolist validated to one-shot."
+argument-hint: "what to automate until complete"
 ---
 
 # /wsai-loop
 
-## Contrat
+You state only the goal. Realization = one-shot (no return).
 
-Tu dis **seulement** le but à automatiser jusqu’à **réalisation complète** (plus besoin de revenir).
+`$ARGUMENTS` = goal.
 
-`$ARGUMENTS` = le but brut.
+## Single install
 
-## Une seule commande
+One plugin path: `~/.cursor/plugins/local/wsai-loop`  
+One slash command: `/wsai-loop` (+ `/wsai-loop-cancel`).
 
-Ce plugin expose **un** slash : `/wsai-loop` (+ `/wsai-loop-cancel`). Pas de skill doublon.
+```bash
+git clone https://github.com/Jerome-WSwissAI/wsai-loop.git ~/.cursor/plugins/local/wsai-loop
+```
 
-## Install public
+Runtime: `WSAI_LOOP_ROOT` or `./.wsai-loop`.
 
-Repo GitHub (clone → `~/.cursor/plugins/local/wsai-loop`).  
-Runtime: env `WSAI_LOOP_ROOT` ou `./.wsai-loop` (legacy `E:\WSAI\Orchestration\wsai-loop` si présent).
+## Flow
 
-## Protocole
+1. `CURRENT.md` → `PLAN.md`
+2. `init-run.mjs` → RESEARCH + `generate-todos.mjs` → `TODO.md`
+3. Each R*: `Source:` + `Extrait:` (non-AI) → `validate-research.mjs`
+4. Each TD*: `validate-todo.mjs`
+5. `board.mjs` — done only if all pass
 
-1. `prompts/CURRENT.md` = but  
-2. `prompts/PLAN.md` = Recherche + Plan + Exercices + F/T/Q/But  
-3. `init-run.mjs` → RESEARCH + **generate-todos.mjs** → `TODOS.json` / `TODO.md`  
-4. Chaque `R*` : `Source: https://…` + `Extrait:` (non-IA) → `validate-research.mjs`  
-5. Evidence research peut contenir `## Todos` → regénérer todolist  
-6. **Chaque `TD*`** → `validate-todo.mjs --pass --evidence` (mêmes règles sources)  
-7. Controllers + `board.mjs` — done seulement si RESEARCH + **tous les todos** + F/T/Q/GOAL  
-
-Hook `preToolUse` deny tant que research incomplete. https://cursor.com/docs/hooks  
-Hook `stop` FORCE si todos incomplets.
-
-## Cancel
-
-`/wsai-loop-cancel`
+Hooks: https://cursor.com/docs/hooks

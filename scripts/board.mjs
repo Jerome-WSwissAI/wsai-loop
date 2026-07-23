@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import {
-  appendEvent,
-  ensureRuntimeDirs,
-  paths,
-  readJson,
-  writeJson,
+    appendEvent,
+    ensureRuntimeDirs,
+    paths,
+    readJson,
+    writeJson,
 } from "./paths.mjs";
 
 ensureRuntimeDirs();

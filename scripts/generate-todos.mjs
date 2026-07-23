@@ -9,13 +9,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  appendEvent,
-  bulletsFrom,
-  ensureRuntimeDirs,
-  extractSection,
-  paths,
-  readJson,
-  writeJson,
+    appendEvent,
+    bulletsFrom,
+    ensureRuntimeDirs,
+    extractSection,
+    paths,
+    readJson,
+    writeJson,
 } from "./paths.mjs";
 
 ensureRuntimeDirs();

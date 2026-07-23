@@ -1,7 +1,7 @@
 {
   "name": "wsai-loop",
-  "version": "1.3.0",
-  "description": "Goal → non-AI sourced research → generated todolist all validated → one-shot complete.",
+  "version": "1.3.1",
+  "description": "Goal to non-AI research to todolist all validated to one-shot. Single /wsai-loop command.",
   "author": {
     "name": "WSAI / Whytcard"
   },

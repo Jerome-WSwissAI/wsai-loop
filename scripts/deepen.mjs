@@ -8,9 +8,9 @@
  *   node deepen.mjs --saturate   # mark saturated after hostile check (explicit)
  *   node deepen.mjs --status
  */
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 import {
     appendEvent,
     ensureRuntimeDirs,
